@@ -8,33 +8,35 @@ export default function FilmCard({ film, onClick }) {
   return (
     <div
       onClick={() => onClick(film)}
+      data-testid={`film-card-${film.id}`}
       className="bg-surface border border-white/8 rounded-xl overflow-hidden cursor-pointer transition-all hover:-translate-y-1 hover:border-white/20 relative group"
     >
       {film.watched && (
-        <div className="absolute top-2 right-2 z-10 bg-green-500 rounded-full w-5 h-5 flex items-center justify-center">
-          <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+        <div data-testid="watched-badge" className="absolute top-2 right-2 z-10 bg-green-500 rounded-full w-5 h-5 flex items-center justify-center">
+          <svg data-testid="watched-badge-icon" width="10" height="10" viewBox="0 0 12 12" fill="none">
             <path d="M2 6l3 3 5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </div>
       )}
-      <div className="aspect-[2/3] bg-surface2 overflow-hidden">
+      <div data-testid="film-card-poster" className="aspect-[2/3] bg-surface2 overflow-hidden">
         {film.posterPreview || film.posterUrl ? (
           <img
             src={film.posterPreview || film.posterUrl}
             alt={film.name}
+            data-testid="film-card-poster-image"
             className="w-full h-full object-cover"
             loading="lazy"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-gray-600 text-xs">нет постера</div>
+          <div data-testid="film-card-no-poster" className="w-full h-full flex items-center justify-center text-gray-600 text-xs">нет постера</div>
         )}
       </div>
-      <div className="p-2.5">
-        <p className="text-xs font-medium leading-snug line-clamp-2 mb-1.5">{film.name || film.alternativeName || 'Без названия'}</p>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-gray-500">{film.year || '—'}</span>
+      <div data-testid="film-card-info" className="p-2.5">
+        <p data-testid="film-card-name" className="text-xs font-medium leading-snug line-clamp-2 mb-1.5">{film.name || film.alternativeName || 'Без названия'}</p>
+        <div data-testid="film-card-footer" className="flex items-center justify-between">
+          <span data-testid="film-card-year" className="text-xs text-gray-500">{film.year || '—'}</span>
           {rating > 0 && (
-            <span className={`text-xs font-semibold px-1.5 py-0.5 rounded ${ratingColor} ${ratingBg}`}>
+            <span data-testid="film-card-rating" className={`text-xs font-semibold px-1.5 py-0.5 rounded ${ratingColor} ${ratingBg}`}>
               {rating.toFixed(1)}
             </span>
           )}
